@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Slug Race — Compare JavaScript slugify (kebab-case) libraries</title>
     <style>
@@ -19,6 +18,8 @@
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+
+        --transition-duration: 0.2s;
       }
 
       *,
@@ -35,76 +36,183 @@
         margin: 0;
       }
 
+      header {
+        padding: 0.5rem 2rem;
+        font-size: 1.25em;
+      }
+
       #app {
-        display: table;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #credits {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75em;
+        color: rgba(255, 255, 255, 0.38);
+      }
+
+      #table {
         width: 100%;
       }
 
-      .row {
-        display: table-row;
+      label {
+        display: block;
+        position: relative;
+      }
+
+      label > span {
+        position: absolute;
+        top: 50%;
+        left: 2rem;
+        transform: translateY(-150%);
+        font-size: 0.75em;
+        pointer-events: none;
+        transition: transform var(--transition-duration),
+          font-size var(--transition-duration);
+      }
+
+      input:placeholder-shown + span {
+        transform: translateY(-50%);
+        font-size: 1em;
       }
 
       input {
-        display: table-cell;
         width: 100%;
         font: inherit;
         border: 0;
         padding: 2rem;
+        border-radius: 0;
+        outline-offset: -2px;
+      }
+
+      :focus {
+        outline: 2px solid #646cff;
+      }
+
+      .row {
+        transition: background-color var(--transition-duration),
+          color var(--transition-duration);
       }
 
       .row > div {
-        display: table-cell;
-        width: 50%;
-        padding: 1.5rem 2rem;
+        padding: 0.25rem 2rem;
       }
 
-      #inputs > div {
-        padding: 0;
+      #rows .row {
+        padding: 0.75rem 0;
       }
 
-      #rows {
-        display: table-row-group;
-      }
-
-      #rows > div:nth-child(even) {
+      .row:nth-child(even) {
         background-color: #272727;
       }
 
+      [data-state='placeholder'],
       .placeholder {
         color: rgba(255, 255, 255, 0.38);
       }
 
-      .correct {
+      [data-state='placeholder'] {
+        transition: color 0s;
+      }
+
+      [data-state='correct'] {
         background-color: #14532d;
         color: #22c55e;
       }
 
-      .incorrect {
+      [data-state='correct']:nth-child(even) {
+        background-color: #166534;
+      }
+
+      [data-state='incorrect'] {
         background-color: #7f1d1d;
         color: #f87171;
+      }
+      [data-state='incorrect']:nth-child(even) {
+        background-color: #991b1b;
+      }
+
+      [data-state='correct'] a,
+      [data-state='incorrect'] a {
+        color: #fff;
+      }
+
+      [data-state='correct'] a:hover,
+      [data-state='incorrect'] a:hover {
+        color: #dddddd;
       }
 
       a {
         font-weight: 500;
         color: #646cff;
         text-decoration: inherit;
+        transition: color var(--transition-duration);
       }
       a:hover {
         color: #535bf2;
+      }
+
+      @media (min-width: 600px) {
+        #table {
+          display: table;
+        }
+
+        #rows {
+          display: table-row-group;
+        }
+
+        .row {
+          display: table-row;
+        }
+
+        label {
+          display: table-cell;
+        }
+
+        .row > div {
+          display: table-cell;
+          width: 50%;
+          padding: 1.5rem 2rem;
+        }
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <div class="row" id="inputs">
-        <div>
-          <input id="input" type="text" placeholder="Input text" autofocus />
+      <header>
+        <p>
+          Compare different JavaScript libraries that transform text to
+          kebab-case (slugify).
+        </p>
+        <p id="credits">
+          <span>
+            Made by <a href="https://zy.ke/" target="_blank">az33zy</a>
+          </span>
+          <span>
+            <a
+              href="https://github.com/az33zy/slugrace"
+              target="_blank"
+              rel="noreferrer"
+              >Source code</a
+            >
+          </span>
+        </p>
+      </header>
+      <div id="table">
+        <div class="row">
+          <label>
+            <input id="input" type="text" placeholder=" " autofocus />
+            <span class="placeholder">Input text</span>
+          </label>
+          <label>
+            <input id="output" type="text" placeholder=" " />
+            <span class="placeholder">Expected output</span>
+          </label>
         </div>
-        <div>
-          <input id="output" type="text" placeholder="Expected output" />
-        </div>
+        <div id="rows"></div>
       </div>
-      <div id="rows"></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

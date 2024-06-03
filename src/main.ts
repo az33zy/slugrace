@@ -8,6 +8,8 @@ const slugs: {
   name: string;
   transform: (input: string) => string;
   npm?: string;
+  rowEl?: HTMLDivElement;
+  outputEl?: HTMLDivElement;
 }[] = [
   { name: 'slug', transform: slug },
   { name: 'slugify', transform: slugify },
@@ -23,16 +25,23 @@ const rows = document.getElementById('rows') as HTMLDivElement;
 slugs.forEach((slug) => {
   const row = document.createElement('div');
   row.className = 'row';
+  row.dataset.state = 'placeholder';
   row.innerHTML = `
     <div><a href="https://npmjs.com/package/${slug.npm ?? slug.name}" target="_blank" rel="noreferrer">${slug.name}</a></div>
-    <div id="output-${slug.name}" class="placeholder">Type something to see the output</div>
   `;
   rows.appendChild(row);
+
+  const output = document.createElement('div')
+  output.innerText = 'Type something to see the output'
+  row.appendChild(output);
+  
+  slug.rowEl = row;
+  slug.outputEl = output;
 });
 
 input.addEventListener('input', () => {
   slugs.forEach((slug) => {
-    const output = document.getElementById(`output-${slug.name}`)!;
+    const output = slug.outputEl!
     if (input.value === '') {
       output.textContent = 'Type something to see the output';
     } else {
@@ -46,15 +55,16 @@ expectedOutput.addEventListener('input', compareOutputs);
 
 function compareOutputs() {
   slugs.forEach((slug) => {
-    const output = document.getElementById(`output-${slug.name}`)!;
+    const row = slug.rowEl!;
+    const output = slug.outputEl!;
     if (input.value === '') {
-      output.className = 'placeholder';
+      row.dataset.state = 'placeholder';
     } else if (expectedOutput.value === '') {
-      output.className = '';
+      row.dataset.state = '';
     } else if (output.textContent === expectedOutput.value) {
-      output.className = 'correct';
+      row.dataset.state = 'correct';
     } else {
-      output.className = 'incorrect';
+      row.dataset.state = 'incorrect';
     }
   });
 }
