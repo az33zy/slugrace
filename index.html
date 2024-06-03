@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slug Race — Compare JavaScript slugify (kebab-case) libraries</title>
+    <style>
+      :root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+        font-weight: 400;
+
+        color-scheme: dark;
+        color: rgba(255, 255, 255, 0.87);
+        background-color: #242424;
+
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: calc(16px + 0.33vw);
+      }
+
+      body {
+        margin: 0;
+      }
+
+      #app {
+        display: table;
+        width: 100%;
+      }
+
+      .row {
+        display: table-row;
+      }
+
+      input {
+        display: table-cell;
+        width: 100%;
+        font: inherit;
+        border: 0;
+        padding: 2rem;
+      }
+
+      .row > div {
+        display: table-cell;
+        width: 50%;
+        padding: 1.5rem 2rem;
+      }
+
+      #inputs > div {
+        padding: 0;
+      }
+
+      #rows {
+        display: table-row-group;
+      }
+
+      #rows > div:nth-child(even) {
+        background-color: #272727;
+      }
+
+      .placeholder {
+        color: rgba(255, 255, 255, 0.38);
+      }
+
+      .correct {
+        background-color: #14532d;
+        color: #22c55e;
+      }
+
+      .incorrect {
+        background-color: #7f1d1d;
+        color: #f87171;
+      }
+
+      a {
+        font-weight: 500;
+        color: #646cff;
+        text-decoration: inherit;
+      }
+      a:hover {
+        color: #535bf2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="row" id="inputs">
+        <div>
+          <input id="input" type="text" placeholder="Input text" autofocus />
+        </div>
+        <div>
+          <input id="output" type="text" placeholder="Expected output" />
+        </div>
+      </div>
+      <div id="rows"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
