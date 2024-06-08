@@ -3,6 +3,7 @@ import slugify from 'slugify';
 import sindreSorhusSlugify from '@sindresorhus/slugify';
 import vocaSlugify from 'voca/slugify';
 import lodashKebabCase from 'lodash/kebabCase';
+import speakingurl from 'speakingurl';
 
 const slugs: {
   name: string;
@@ -16,6 +17,7 @@ const slugs: {
   { name: '@sindresorhus/slugify', transform: sindreSorhusSlugify },
   { name: 'voca/slugify', transform: vocaSlugify, npm: 'voca' },
   { name: 'lodash/kebabCase', transform: lodashKebabCase, npm: 'lodash' },
+  { name: 'speakingurl', transform: speakingurl },
 ];
 
 const input = document.getElementById('input') as HTMLInputElement;

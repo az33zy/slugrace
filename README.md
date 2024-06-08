@@ -14,3 +14,4 @@ Big thanks to:
 - [Sindre Sorhus](https://github.com/sindresorhus) for [@sindresorhus/slugify](https://github.com/sindresorhus/slugify)
 - [Dmitri Pavlutin](https://github.com/panzerdp) for [voca](https://github.com/panzerdp/voca)
 - [Authors of lodash](https://github.com/lodash) for [lodash](https://github.com/lodash/lodash)
+- [Sascha Droste](https://github.com/pid) for [speakingurl](https://github.com/pid/speakingurl)
